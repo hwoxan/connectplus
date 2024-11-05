@@ -19,4 +19,4 @@ Inspirado no **Conecta4G**, criado por *@kiritosshxd*.
   Uma navegação ainda mais intuitiva e agradável com dois spinners que aprimoram a experiência do usuário.
 
 - 💸 **Gratuito para Usar**
-  Aproveite todos os recursos de segurança e privacidade sem custo.
+  \nAproveite todos os recursos de segurança e privacidade sem custo.
