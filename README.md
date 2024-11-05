@@ -1,6 +1,6 @@
 # 🌐 ConnectPlus "LN"
 
-Bem-vindo ao **ConnectPlus LN**! Seu aplicativo VPN para garantir uma conexão segura e privada, sem complicações. 
+Bem-vindo ao **ConnectPlus**! Seu aplicativo VPN para garantir uma conexão segura e privada, sem complicações. 
 Inspirado pelo **Conecta4G**, criado por *@kiritosshxd*.
 
 ## 🚀 Funcionalidades
