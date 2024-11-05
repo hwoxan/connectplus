@@ -1,1 +1,69 @@
-config
+{
+  "Version":"1",
+  "Update":"https://raw.githubusercontent.com/hwoxan/pudim/main/config?token=GHSAT0AAAAAACVUGF5ONWVA6G5L7UWMYSEOZV44ZBQ",
+  "UdpPort":"7300",
+  "Notices":"https://raw.githubusercontent.com/hwoxan/pudim/main/smsEappUpdate?token=GHSAT0AAAAAACVUGF5PICM7BSSV2XCBZJBKZV45OKQ",
+  "Contato":"https://t.me/pudim",
+  "Site":"https://www.speedtest.net",
+  "Servers": [
+       {
+         "Color": "#ffffff",
+         "ColorDescription": "#000000",
+         "ColorName": "#000000",
+         "Description": "servidor do eevox",
+         "FLAG":"https://telegra.ph/file/8287cf5cecc876001e0b9.png",
+         "Name":"VIVO SECURITY 1",
+         "USER":"",
+         "PASS":"",
+         "SSLPort":"443",
+         "ServerIP":"br.amvoxnet.shop", 
+         "ServerPort":"80",
+         "TYPE":"premium",
+         "CheckUser": "http://172.233.17.8:5454/checkUser"
+      }
+  ],
+"Networks": [
+       {
+         "Color": "#0000ff",
+         "ColorDescription": "#ffffff",
+         "ColorName": "#ffffff",
+         "Description": "tim expirado papai",
+         "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
+         "Info":"Proxy",
+         "Name":"TIM",
+         "Payload":"GET /cdn-cgi/trace HTTP/1.1[lf]Host: apf.maisvantagenstim.com.br[crlf][crlf][split][crlf]GET- / HTTP/1.1[crlf]Host: br.amvoxnet.shop[crlf]Upgrade: Websocket[crlf][crlf]",
+         "ProxyIP":"134.65.19.83#timofertas.com#apf.maisvantagenstim.com.br#www.terra.com#m.operamini.com#api.sandbox.c6bank.com.br#app.sandbox.c6bank.com.br",
+         "ProxyPort":"80",
+         "SNI":"",
+         "TlsIP":""
+      },
+      {
+         "Color": "#993399",
+         "ColorDescription": "#ffffff",
+         "ColorName": "#ffffff",
+         "Description": "vivo facil",
+         "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
+         "Info":"Proxy",
+         "Name":"VIVO",
+         "Payload":"[split][delay_split]ACL / /\n]",
+         "ProxyIP":"172.233.17.8",
+         "ProxyPort":"80",
+         "SNI":"",
+         "TlsIP":""
+      },
+      {
+         "Color": "#ff0000",
+         "ColorDescription": "#ffffff",
+         "ColorName": "#ffffff",
+         "Description": "planos naum sei quais",
+         "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
+         "Info":"Proxy",
+         "Name":"CLARO",
+         "Payload":"[split][delay_split]ACL / /\n]",
+         "ProxyIP":"172.233.17.8",
+         "ProxyPort":"80",
+         "SNI":"",
+         "TlsIP":""
+      }
+  ]
+}
