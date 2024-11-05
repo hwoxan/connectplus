@@ -25,6 +25,6 @@ Inspirado no **Conecta4G**, criado por *@kiritosshxd*.
 
 Se você tiver dúvidas ou feedback, sinta-se à vontade para entrar em contato!
 
---- t.me/pudim
+- t.me/pudim
 
 Agradecemos por escolher o **ConnectPlus**. Navegue com segurança!
