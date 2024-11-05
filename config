@@ -1,8 +1,8 @@
 {
   "Version":"1",
-  "Update":"https://raw.githubusercontent.com/hwoxan/pudim/main/config?token=GHSAT0AAAAAACVUGF5ONWVA6G5L7UWMYSEOZV44ZBQ",
+  "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/config",
   "UdpPort":"7300",
-  "Notices":"https://raw.githubusercontent.com/hwoxan/pudim/main/smsEappUpdate?token=GHSAT0AAAAAACVUGF5PICM7BSSV2XCBZJBKZV45OKQ",
+  "Notices":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms_appupdate",
   "Contato":"https://t.me/pudim",
   "Site":"https://www.speedtest.net",
   "Servers": [
