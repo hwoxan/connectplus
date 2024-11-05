@@ -18,5 +18,13 @@ Inspirado no **Conecta4G**, criado por *@kiritosshxd*.
 - ⏳ **Dois Spinners Exclusivos**  
   Uma navegação ainda mais intuitiva e agradável com dois spinners que aprimoram a experiência do usuário.
 
-- 💸 **Gratuito para Usar**
-  \nAproveite todos os recursos de segurança e privacidade sem custo.
+- 💸 **Gratuito para Usar**  
+  Aproveite todos os recursos de segurança e privacidade sem custo.
+
+## 🔗 Contato
+
+Se você tiver dúvidas ou feedback, sinta-se à vontade para entrar em contato!
+
+--- @pudim
+
+Agradecemos por escolher o **ConnectPlus**. Navegue com segurança!
