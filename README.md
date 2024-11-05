@@ -7,4 +7,4 @@ Bem-vindo ao **ConnectPlus LN**! Seu aplicativo VPN para uma conexão segura e p
 - 🔒 Conexão VPN segura
 - 🛡️ Proteção contra vazamento de DNS
 - 🌍 Vários servidores disponíveis
-- *2* SPINNERS.
+- DOIS SPINNERS.
