@@ -1,1 +1,18 @@
-theme
+{
+  "Version": "1",
+  "Update": "https://raw.githubusercontent.com/hwoxan/pudim/main/theme?token=GHSAT0AAAAAACVUGF5OZYURROVATDB5F4ISZV44ZUA",
+  "AppName": "PnetPlus",
+  "ImgFundo": "https://i.imgur.com/bn0VuoP.gif",
+  "ImgLogo": "https://i.gifer.com/XZ5V.gif",
+  "ImgMenu": "https://telegra.ph/file/828fa0ae4f65228764d39.png",
+  "ImgLogs": "https://telegra.ph/file/ca921a93220cc2281f147.png",
+  "ImgCheck": "https://telegra.ph/file/12ab1b8c54f671f72bc73.png",
+  'ImgUser': "https://telegra.ph/file/51cfbf308fa6a293d6f7b.png",
+  'ImgPass': "https://telegra.ph/file/0aae4b5cc75034f04611d.png",
+  "ImgBanner": "https://telegra.ph/file/2a6a411c054bfcd18e81e.png",
+  "ColorOne": "#7A333333",
+  "ColorTwo": "#7A333333",
+  "ColorStarter": "#7A333333",
+  "ColorDialogs": "#84ffffff",
+  "ColorButtons": "#333333"
+}
