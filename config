@@ -2,7 +2,8 @@
   "Version":"1",
   "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/config",
   "UdpPort":"7300",
-  "Notices":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms_appupdate",
+  "Sms":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms_appupdate",
+  "UpdateApk": "https://github.com/hwoxan/pnetplus/releases/download/v1.0.4/PnetPlus-LN-1.0.4.apk",
   "Contato":"https://t.me/pudim",
   "Site":"https://www.speedtest.net",
   "Servers": [
