@@ -25,15 +25,19 @@ Inspirado no **Conecta4G**, criado por *@kiritosshxd*.
 
 Se você tiver dúvidas ou feedback, sinta-se à vontade para entrar em contato!
 
-- @pudim
+- **Erick Ferreira** - [@pudim](https://t.me/pudim)  
 
 ## 🙏 Agradecimentos
 
-- Amvox - @amvoxnet
+- **Amvox** - [@amvoxnet](https://t.me/amvoxnet)  
   Pelo suporte como dono do servidor, garantindo a infraestrutura e disponibilidade necessárias para que o aplicativo funcione sem interrupções.
-- Louys Dela Manga - @Louyszhx
+
+- **Louys Dela Manga** - [@Louyszhx](https://t.me/Louyszhx)  
   Agradeço pela parceria, pelas discussões técnicas que ajudaram a solucionar problemas e pela visão colaborativa no projeto.
-- Will Oliver - @Will_ojk
+
+- **Will Oliver** - [@Will_ojk](https://t.me/Will_ojk)  
   Por desempenhar um papel essencial como testador do aplicativo, garantindo a qualidade e funcionamento das funcionalidades.
-- ConnecTV - @Connectv_OFC
-  Obrigado pelo apoio técnico e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais
+
+- **ConnecTV** - [@Connectv_OFC](https://t.me/Connectv_OFC)  
+  Obrigado pelo apoio técnico e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais.
+
