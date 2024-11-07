@@ -29,7 +29,11 @@ Se você tiver dúvidas ou feedback, sinta-se à vontade para entrar em contato!
 
 ## 🙏 Agradecimentos
 
-- Amvox @amvoxnet - Pelo suporte como dono do servidor, garantindo a infraestrutura e disponibilidade necessárias para que o aplicativo funcione sem interrupções.
-- Louys Dela Manga @Louyszhx - Agradeço pela parceria, pelas discussões técnicas que ajudaram a solucionar problemas e pela visão colaborativa no projeto.
-- Will Oliver @Will_ojk - Por desempenhar um papel essencial como testador do aplicativo, garantindo a qualidade e funcionamento das funcionalidades.
-- ConnecTV @Connectv_OFC - Obrigado pelo apoio técnico e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais
+- Amvox - @amvoxnet
+  Pelo suporte como dono do servidor, garantindo a infraestrutura e disponibilidade necessárias para que o aplicativo funcione sem interrupções.
+- Louys Dela Manga - @Louyszhx
+  Agradeço pela parceria, pelas discussões técnicas que ajudaram a solucionar problemas e pela visão colaborativa no projeto.
+- Will Oliver - @Will_ojk
+  Por desempenhar um papel essencial como testador do aplicativo, garantindo a qualidade e funcionamento das funcionalidades.
+- ConnecTV - @Connectv_OFC
+  Obrigado pelo apoio técnico e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais
