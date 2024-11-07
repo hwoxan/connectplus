@@ -39,5 +39,5 @@ Se você tiver dúvidas ou feedback, sinta-se à vontade para entrar em contato!
   Por desempenhar um papel essencial como testador do aplicativo, garantindo a qualidade e funcionamento das funcionalidades.
 
 - **ConnecTV** - [@Connectv_OFC](https://t.me/Connectv_OFC)  
-  Obrigado pelo apoio técnico e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais.
+  Obrigado pelo apoio e pelas sugestões que fizeram a diferença no desenvolvimento das funcionalidades principais.
 
