@@ -1,5 +1,5 @@
 {
-  "Version":"1",
+  "Version":"2",
   "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/config",
   "UdpPort":"7300",
   "Sms":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms",
@@ -47,7 +47,7 @@
          "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
          "Info":"Proxy",
          "Name":"TIM DATAMI 01",
-         "Payload":"GET / HTTP/1.1[lf]Host: vpn.cloudmi.datami.com[crlf][crlf][split][crlf]GET / HTTP/1.1[crlf]Host: LINKGRINGO[crlf][lf]Upgrade: Websocket[crlf][crlf]#GET / HTTP/1.1[lf]Host: vpn.cloudmi.datami.com[crlf][crlf][split][crlf]ACL / HTTP/1.1[crlf]Host: LINKGRINGO[crlf][lf]Upgrade: Websocket[crlf][crlf]",
+         "Payload":"GET /cdn-cgi/trace HTTP/1.1[lf]Host: vpn.cloudmi.datami.com[crlf][crlf][split][crlf]ACL- / HTTP/1.1[crlf]Host: br.amvoxnet.shop[crlf]Upgrade: Websocket[crlf][crlf]#GET /cdn-cgi/trace HTTP/1.1[lf]Host: vpn.cloudmi.datami.com[crlf][crlf][split][crlf]GET- / HTTP/1.1[crlf]Host: br.amvoxnet.shop[crlf]Upgrade: Websocket[crlf][crlf]",
          "ProxyIP":"vpn.cloudmi.datami.com",
          "ProxyPort":"80",
          "SNI":"",
