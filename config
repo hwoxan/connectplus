@@ -1,5 +1,5 @@
 {
-  "Version":"2",
+  "Version":"3",
   "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/config",
   "UdpPort":"7300",
   "Sms":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms",
@@ -13,7 +13,7 @@
          "ColorName": "#000000",
          "Description": "AI QUE TUDO",
          "FLAG":"https://telegra.ph/file/8287cf5cecc876001e0b9.png",
-         "Name":"SERVIDOR DO BINHO",
+         "Name":"SERVIDOR DO AMVOX",
          "USER":"",
          "PASS":"",
          "SSLPort":"443",
@@ -36,6 +36,21 @@
          "ServerPort":"80",
          "TYPE":"premium",
          "CheckUser": "http://172.233.17.8:5454/checkUser"
+      },
+      {
+         "Color": "#ffffff",
+         "ColorDescription": "#000000",
+         "ColorName": "#000000",
+         "Description": "BR",
+         "FLAG":"https://telegra.ph/file/8287cf5cecc876001e0b9.png",
+         "Name":"SERVIDOR WILL BELÉM/PA",
+         "USER":"",
+         "PASS":"",
+         "SSLPort":"443",
+         "ServerIP":"dspeed.xyz", 
+         "ServerPort":"80",
+         "TYPE":"premium",
+         "CheckUser": "http://204.216.150.175:2053/checkUser"
       }
   ],
 "Networks": [
@@ -108,6 +123,34 @@
          "ProxyPort":"80",
          "SNI":"",
          "TlsIP":""
+      },
+      {
+         "Color": "#993399",
+         "ColorDescription": "#ffffff",
+         "ColorName": "#ffffff",
+         "Description": "VIVO SSL",
+         "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
+         "Info":"Tlsws",
+         "Name":"VIVO TODO OS DDDS SSL 01",
+         "Payload":"PACTH /Will HTTP/1.1[crlf]Host: firewallfalcon.canaldotl.573357.xyz[crlf]Upgrade: Websocket[crlf][crlf]",
+         "ProxyIP":"",
+         "ProxyPort":"443",
+         "SNI":"firewallfalcon.canaldotl.573357.xyz",
+         "TlsIP":"gedoc.vivo.com.br"
+      },
+      {
+         "Color": "#993399",
+         "ColorDescription": "#ffffff",
+         "ColorName": "#ffffff",
+         "Description": "VIVO SSL",
+         "FLAG":"https://telegra.ph/file/02b0f511eaaaa1d2d467a.png",
+         "Info":"Tlsws",
+         "Name":"VIVO TODO OS DDDS SSL 02",
+         "Payload":"PACTH /Will HTTP/1.1[crlf]Host: firewallfalcon.canaldotl.573357.xyz[crlf]Upgrade: Websocket[crlf][crlf]",
+         "ProxyIP":"",
+         "ProxyPort":"443",
+         "SNI":"firewallfalcon.canaldotl.573357.xyz",
+         "TlsIP":"162.159.135.63"
       }
   ]
 }
