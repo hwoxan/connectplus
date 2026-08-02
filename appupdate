@@ -1,1 +1,6 @@
-a
+{
+  "Version": "1",
+  "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms",
+  "Atualization": "true"
+  "VersionName": "RE 1.0.0208-10"
+}
