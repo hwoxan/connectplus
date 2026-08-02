@@ -1,6 +1,6 @@
 {
-  "Version": "1",
+  "Version": "RE 1.0.0208-10",
   "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/appupdate",
-  "Atualization": "true"
-  "VersionName": "RE 1.0.0208-10"
+  "UpdateApk":"https://github.com/hwoxan/pnetplus/releases/download/v1.0.4/PnetPlus-LN-1.0.4.apk",
+  "Forced": false
 }
