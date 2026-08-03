@@ -15,7 +15,7 @@
          "ServerIP":"162.247.241.4",
          "ServerPort":"80",
          "SSLPort":"443",
-         "CheckUser":"http://162.247.241.4:5000/checkUser",
+         "CheckUser":"https://gerencia.senhordosistema.shop/checkuser/dtunnel.php?user=",
          "USER":"",
          "PASS":"",
          "Color":"#ffffff"
