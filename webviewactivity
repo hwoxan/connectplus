@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C4G - Login</title>
+  <!-- Ícones via Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Container principal — canvas de design fixo em 400x850. A escala real
+       pra caber em qualquer tela (incluindo DPI baixa) é aplicada via JS
+       (função scalePhone), não por media query — cobre qualquer aparelho. */
+    .app-container {
+      position: relative;
+      width: 400px;
+      height: 850px;
+      background-color: #000;
+
+      /* SUAS IMAGENS AQUI: */
+      background-image: url('https://i.postimg.cc/6pYHZmw9/IMG-20260804-073718-671.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow: hidden;
+      transform-origin: top left;
+    }
+
+    /* Ícone de atualização superior */
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      z-index: 2;
+    }
+
+    .refresh-icon {
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .refresh-icon:active { transform: scale(0.88); }
+    .refresh-icon.spinning { animation: spin 0.9s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* Área do Logo */
+    .logo-container {
+      margin-top: 6px;
+      margin-bottom: 18px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .logo-img {
+      max-width: 180px;
+      height: auto;
+    }
+
+    /* Centro: botão principal + status */
+    .main-area {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 8px;
+      gap: 22px;
+      z-index: 2;
+    }
+
+    /* Formulário (dentro do modal) */
+    .form-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Estilo dos campos pretos arredondados */
+    .input-box {
+      background-color: #000000;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .input-box.hidden { display: none; }
+
+    .input-box i {
+      color: #ffffff;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+
+    .input-box input,
+    .input-box select {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .input-box select {
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .input-box option {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .icon-right {
+      margin-left: auto;
+      margin-right: 0 !important;
+      cursor: pointer;
+    }
+
+    /* Botão INICIAR */
+    .btn-iniciar {
+      background-color: #000000;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      height: 54px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: opacity 0.2s, background-color 0.3s, border-color 0.3s;
+      width: 90%;
+      max-width: 320px;
+      display: block;
+    }
+    .btn-iniciar:active { opacity: 0.8; }
+    .btn-iniciar.connected {
+      background-color: #0e2b22;
+      border-color: #22c55e;
+      color: #4ade80;
+    }
+    .btn-iniciar.connecting {
+      opacity: 0.75;
+    }
+
+    /* Texto de status */
+    .status-text {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .status-text.connected { color: #4ade80; }
+    .status-text.error { color: #ff5f5f; }
+
+    /* Painel de dados do usuário (check-user) — abaixo do botão/status */
+    .checkuser-box {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .checkuser-box.show { display: flex; }
+    .cu-line {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+    .cu-line .cu-label { color: #cfcfcf; font-weight: 600; }
+    .cu-line .cu-value { color: #4ade80; font-weight: 800; }
+    .cu-line .cu-value.warn { color: #facc15; }
+    .cu-line .cu-value.danger { color: #ff5f5f; }
+
+    /* ══ MODAIS ══ */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 50;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .modal-card {
+      width: 100%;
+      max-width: 340px;
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 22px 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .modal-title { color: #fff; font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
+    .modal-close {
+      width: 30px; height: 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-msg {
+      color: #bbb;
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .modal-btn-row { display: flex; gap: 10px; }
+    .modal-btn-row .btn-iniciar { width: 100%; margin-top: 0; height: 48px; font-size: 14px; }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06) !important;
+      border-color: rgba(255,255,255,0.1) !important;
+      color: #ccc !important;
+    }
+
+    /* ══ DRAWER DE LOGS — abre arrastando em qualquer ponto da tela, tamanho da tela inteira ══ */
+    .log-drawer {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 45;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      touch-action: none;
+      box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+      will-change: transform;
+    }
+    .log-drawer.open { transform: translateX(0); }
+    .log-drawer.dragging { transition: none; }
+
+    .log-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      padding-top: calc(26px + max(var(--status-bar-height, 0px), env(safe-area-inset-top, 0px)));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .log-drawer-actions { display: flex; align-items: center; gap: 12px; }
+    .log-clear-btn { color: #4ade80; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+    .log-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    .log-line {
+      display: block;
+      font-family: 'SFMono-Regular', 'Courier New', monospace;
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #8a8a8a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container" id="phone">
+
+    <!-- Ícone no canto superior direito: SÓ verifica atualização -->
+    <div class="top-bar">
+      <i class="fa-solid fa-rotate-right refresh-icon" id="refreshIcon" onclick="handleCheckUpdate()"></i>
+    </div>
+
+    <!-- Logotipo via Imagem -->
+    <div class="logo-container">
+      <img src="https://i.postimg.cc/vTBkgwgS/IMG-20260804-073719-915.jpg" alt="Logo C4G" class="logo-img">
+    </div>
+
+    <!-- Centro: formulário + botão principal + status (tudo direto na tela, sem modal) -->
+    <div class="main-area">
+      <div class="form-container" style="width:90%; max-width:320px;">
+        <div class="input-box">
+          <i class="fa-regular fa-file-lines"></i>
+          <select id="profileSelect" onchange="onProfileSelectChange()">
+            <option value="">Selecione um perfil…</option>
+          </select>
+          <i class="fa-solid fa-chevron-down icon-right"></i>
+        </div>
+
+        <div class="input-box" id="userBox">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="usernameInput" placeholder="Usuário" autocomplete="username">
+        </div>
+
+        <div class="input-box" id="passBox">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="passInput" placeholder="Senha" autocomplete="current-password">
+          <i class="fa-regular fa-eye icon-right" onclick="togglePass()"></i>
+        </div>
+
+        <div class="input-box hidden" id="uuidBox">
+          <i class="fa-solid fa-fingerprint"></i>
+          <input type="text" id="uuidInput" placeholder="UUID V2Ray" autocomplete="off">
+        </div>
+
+        <button class="btn-iniciar" id="mainBtn" onclick="handleConnect()">INICIAR</button>
+
+        <div class="status-text" id="statusText">DESCONECTADO</div>
+
+        <div class="checkuser-box" id="checkUserBox">
+          <div class="cu-line"><span class="cu-label">Vencimento:</span> <span class="cu-value" id="cuExpiration">-</span></div>
+          <div class="cu-line"><span class="cu-label">Dias restantes:</span> <span class="cu-value" id="cuDays">-</span></div>
+          <div class="cu-line"><span class="cu-label">Limite:</span> <span class="cu-value" id="cuLimit">-</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DRAWER: DADOS / REGISTROS — abre arrastando em qualquer ponto da tela ══ -->
+    <div class="log-drawer" id="logDrawer">
+      <div class="log-drawer-header">
+        <span class="modal-title">DADOS / REGISTROS</span>
+        <div class="log-drawer-actions">
+          <span class="log-clear-btn" onclick="clearLogs()">Limpar</span>
+          <div class="modal-close" onclick="closeLogDrawer()">&times;</div>
+        </div>
+      </div>
+      <div class="log-drawer-body" id="logBox">
+        <span class="log-line">Aguardando conexão…</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /* ══ BRIDGE (VoidPRO / Dt*) ══ */
+    const B = {
+      exec(n, fb='') { try { const o = window[n]; if (o && typeof o.execute === 'function') return o.execute(); } catch(e) {} return fb; },
+      get(n, fb='') { try { const o = window[n]; if (o && typeof o.get === 'function') return o.get(); } catch(e) {} return fb; },
+      set(n, v) { try { const o = window[n]; if (o && typeof o.set === 'function') o.set(String(v ?? '')); } catch(e) {} },
+      json(n, fb) { try { return JSON.parse(B.exec(n, '') || ''); } catch(e) { return fb; } },
+      clean(v) { const s = String(v ?? '').trim(); return s.toLowerCase() === 'locked' ? '' : s; }
+    };
+
+    /* ══ LOCALSTORAGE (helper único, com fallback seguro) ══ */
+    const LS = {
+      get(key, fallback = null) {
+        try {
+          const raw = localStorage.getItem(key);
+          if (raw == null) return fallback;
+          return JSON.parse(raw);
+        } catch (e) { return fallback; }
+      },
+      set(key, value) {
+        try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+        catch (e) { console.warn('[LS] falha ao salvar "' + key + '":', e); return false; }
+      }
+    };
+
+    /* ══ ÁREAS SEGURAS (status bar nativa) — mesma mecânica do tema Aether:
+       lê a altura real da status bar do aparelho via bridge e aplica como
+       variável CSS, então o cabeçalho do drawer desce a distância certa em
+       qualquer tela, sem valor fixo "chutado". ══ */
+    function updateInsets() {
+      const status = Number(B.exec('DtGetStatusBarHeight', '0')) || 0;
+      document.documentElement.style.setProperty('--status-bar-height', status + 'px');
+    }
+
+    /* ══ ESCALA (mesma mecânica do tema Aether) ══ */
+    let currentScaleX = 1;
+    function scalePhone() {
+      const phone = document.getElementById('phone');
+      if (!phone) return;
+      const availW = document.documentElement.clientWidth || window.innerWidth;
+      const availH = document.documentElement.clientHeight || window.innerHeight;
+      // Escala X e Y independentes: preenche a tela real por completo (sem
+      // sobrar faixa preta nas bordas), em qualquer proporção/DPI.
+      const scaleX = availW / 400;
+      const scaleY = availH / 850;
+      currentScaleX = scaleX;
+      phone.style.transform = `scale(${scaleX}, ${scaleY})`;
+    }
+    let scaleRAF = null;
+    function scheduleScalePhone() {
+      if (scaleRAF) cancelAnimationFrame(scaleRAF);
+      scaleRAF = requestAnimationFrame(scalePhone);
+    }
+    scalePhone();
+    window.addEventListener('load', () => { scalePhone(); updateInsets(); });
+    window.addEventListener('resize', () => {
+      const activeTag = document.activeElement && document.activeElement.tagName;
+      // Enquanto um input estiver focado, ignora o resize por completo — é o
+      // teclado virtual (ou menu de seleção de texto) disparando resize com
+      // dimensões intermediárias que quebravam o layout durante a digitação.
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT') return;
+      scheduleScalePhone();
+    });
+    document.addEventListener('focusout', (e) => {
+      const tag = e.target && e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        setTimeout(scalePhone, 200); // recalcula só depois que o campo perde o foco
+      }
+    }, true);
+    window.addEventListener('orientationchange', () => setTimeout(() => { scalePhone(); updateInsets(); }, 150));
+
+    /* ══ DRAWER DE LOGS — arrasto estilo "carrossel elástico": segue o dedo
+       1:1, com resistência elástica nas pontas e snap com curva suave ao soltar. ══ */
+    const DRAWER_WIDTH = 400; // largura do canvas de design (0 = aberto, 400 = fechado)
+    const DRAWER_ELASTIC = 0.25; // resistência ao arrastar além do limite
+    const DRAWER_THRESHOLD = DRAWER_WIDTH * 0.25; // precisa mover 25% pra trocar de estado
+
+    let logDrawerOpen = false;
+    let isDrawerDragging = false;
+    let drawerStartX = null;
+    let drawerPrevTranslate = DRAWER_WIDTH; // posição base atual (canvas px)
+    let drawerCurrentTranslate = DRAWER_WIDTH;
+    let logPoll = null;
+
+    function drawerEl() { return document.getElementById('logDrawer'); }
+
+    function getPositionX(event) {
+      return event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
+    }
+
+    function drawerDragStart(event) {
+      isDrawerDragging = true;
+      drawerStartX = getPositionX(event);
+      drawerPrevTranslate = logDrawerOpen ? 0 : DRAWER_WIDTH;
+      drawerCurrentTranslate = drawerPrevTranslate;
+      // Garante que o drawer esteja visível durante o arrasto, mesmo se ainda fechado
+      drawerEl().classList.add('dragging');
+      drawerEl().style.transform = `translateX(${drawerCurrentTranslate}px)`;
+    }
+
+    function drawerDragMove(event) {
+      if (!isDrawerDragging || drawerStartX == null) return;
+      const currentX = getPositionX(event);
+      const deltaReal = currentX - drawerStartX;
+      const deltaCanvas = deltaReal / (currentScaleX || 1);
+
+      let next = drawerPrevTranslate + deltaCanvas;
+
+      // Resistência elástica além das pontas (0 = totalmente aberto, WIDTH = totalmente fechado)
+      if (next < 0) {
+        next = next * DRAWER_ELASTIC;
+      } else if (next > DRAWER_WIDTH) {
+        next = DRAWER_WIDTH + (next - DRAWER_WIDTH) * DRAWER_ELASTIC;
+      }
+
+      drawerCurrentTranslate = next;
+      drawerEl().style.transform = `translateX(${next}px)`;
+    }
+
+    function drawerDragEnd() {
+      if (!isDrawerDragging) return;
+      isDrawerDragging = false;
+
+      const movedDistance = drawerCurrentTranslate - drawerPrevTranslate;
+
+      let shouldOpen = logDrawerOpen;
+      if (drawerPrevTranslate === DRAWER_WIDTH && movedDistance < -DRAWER_THRESHOLD) {
+        shouldOpen = true; // estava fechado, arrastou o suficiente pra esquerda -> abre
+      } else if (drawerPrevTranslate === 0 && movedDistance > DRAWER_THRESHOLD) {
+        shouldOpen = false; // estava aberto, arrastou o suficiente pra direita -> fecha
+      }
+
+      drawerStartX = null;
+
+      if (shouldOpen) openLogDrawer(); else closeLogDrawer();
+    }
+
+    function openLogDrawer() {
+      logDrawerOpen = true;
+      drawerEl().classList.remove('dragging');
+      drawerEl().classList.add('open');
+      drawerEl().style.transform = '';
+      pullLogs();
+      clearInterval(logPoll);
+      logPoll = setInterval(pullLogs, 2000);
+    }
+    function closeLogDrawer() {
+      logDrawerOpen = false;
+      drawerEl().classList.remove('dragging');
+      drawerEl().classList.remove('open');
+      drawerEl().style.transform = '';
+      clearInterval(logPoll);
+      logPoll = null;
+    }
+
+    // Tela inteira responde ao arrasto (igual ao "track" do carrossel) — sem
+    // botão/alça visível. Taps normais em inputs/botões continuam funcionando,
+    // pois só tratamos como "arrasto" quando o dedo realmente se move.
+    const phone = document.getElementById('phone');
+
+    phone.addEventListener('touchstart', drawerDragStart, { passive: true });
+    phone.addEventListener('touchmove', drawerDragMove, { passive: true });
+    phone.addEventListener('touchend', drawerDragEnd);
+
+    phone.addEventListener('mousedown', e => {
+      drawerDragStart(e);
+      const onMove = ev => drawerDragMove(ev);
+      const onUp = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+        drawerDragEnd();
+      };
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+    });
+
+    /* ══ LOGS (mesma lógica robusta do Aether — só adiciona linhas novas) ══ */
+    let clearedLogCount = 0;
+    let renderedLogCount = 0;
+    function logTime() { return new Date().toTimeString().slice(0,8); }
+    function log(msg, color) {
+      const box = document.getElementById('logBox');
+      if (!box) return;
+      const ph = box.querySelector('span');
+      if (ph && (ph.textContent.includes('Aguardando') || ph.textContent.includes('Log limpo'))) ph.remove();
+      const s = document.createElement('span');
+      s.className = 'log-line';
+      s.style.color = color || '#8a8a8a';
+      s.textContent = logTime() + ' ' + String(msg).replace(/<[^>]*>/g, '');
+      box.appendChild(s);
+      while (box.children.length > 60) box.removeChild(box.firstChild);
+      box.scrollTop = box.scrollHeight;
+    }
+    function clearLogs() {
+      try {
+        const raw = B.exec('DtGetLogs', '');
+        const rows = raw ? JSON.parse(raw) : [];
+        clearedLogCount = Array.isArray(rows) ? rows.length : 0;
+      } catch (e) { clearedLogCount = 0; }
+      renderedLogCount = clearedLogCount;
+      const b = document.getElementById('logBox');
+      if (b) b.innerHTML = '<span class="log-line" style="color:#4ade80">Log limpo.</span>';
+    }
+    function pullLogs() {
+      try {
+        const raw = B.exec('DtGetLogs', '');
+        if (!raw || raw === '[]') return;
+        const rows = JSON.parse(raw);
+        if (!Array.isArray(rows)) return;
+        if (clearedLogCount > rows.length) clearedLogCount = 0;
+        if (renderedLogCount < clearedLogCount) renderedLogCount = clearedLogCount;
+        if (renderedLogCount > rows.length) renderedLogCount = clearedLogCount;
+
+        const newRows = rows.slice(renderedLogCount);
+        if (!newRows.length) return;
+
+        const box = document.getElementById('logBox');
+        const ph = box.querySelector('span');
+        if (ph && (ph.textContent.includes('Aguardando') || ph.textContent.includes('Log limpo'))) ph.remove();
+
+        newRows.forEach(r => {
+          let ts = '', msg = '';
+          if (typeof r === 'string') { msg = r; }
+          else { const k = Object.keys(r); ts = k[0] || ''; msg = String(r[ts] || r.message || r.msg || ''); }
+          msg = msg.replace(/<[^>]*>/g, '').trim();
+          if (!msg) return;
+          const line = ts ? ts + ' ' + msg : msg;
+          const sl = line.toLowerCase();
+          const c = /error|fail|falha|invalid|block|timeout/.test(sl) ? '#ff5f5f' :
+                    /connect|succes|101|200/.test(sl) ? '#4ade80' :
+                    /connect|auth|warn/.test(sl) ? '#facc15' : '#8a8a8a';
+          const s = document.createElement('span');
+          s.className = 'log-line'; s.style.color = c; s.textContent = line;
+          box.appendChild(s);
+        });
+        renderedLogCount = rows.length;
+        while (box.children.length > 60) box.removeChild(box.firstChild);
+        box.scrollTop = box.scrollHeight;
+      } catch(e) {}
+    }
+    window.DtLogsUpdatedListener = () => pullLogs();
+    window.dtLogsUpdatedListener = window.DtLogsUpdatedListener;
+    window.DtLogListener = m => { if (m) log(String(m)); };
+
+    /* ══ ESTADOS DA VPN ══ */
+    let vpnConnected = false, vpnConnecting = false;
+    let lastState = 'DISCONNECTED';
+    const STATE_MAP = {
+      CONNECTED:     { label: 'CONECTADO',            cls: 'connected' },
+      CONNECTING:    { label: 'CONECTANDO...',        cls: '' },
+      AUTH:          { label: 'AUTENTICANDO...',      cls: '' },
+      DISCONNECTING: { label: 'DESCONECTANDO...',     cls: '' },
+      NO_NETWORK:    { label: 'SEM REDE',             cls: 'error' },
+      AUTH_FAILED:   { label: 'FALHA NA AUTENTICAÇÃO',cls: 'error' },
+      DISCONNECTED:  { label: 'DESCONECTADO',         cls: '' },
+    };
+    function renderState(state) {
+      const btn = document.getElementById('mainBtn');
+      const status = document.getElementById('statusText');
+
+      // Reconexão silenciosa (mesma lógica do tema Aether): se já estava
+      // CONNECTED/AUTH e volta pra CONNECTING/NO_NETWORK, é reconexão automática
+      // — não trata como desconexão de verdade.
+      const wasOnline = lastState === 'CONNECTED' || lastState === 'AUTH';
+      const reconnecting = wasOnline && (state === 'CONNECTING' || state === 'NO_NETWORK');
+
+      const s = STATE_MAP[state] || STATE_MAP.DISCONNECTED;
+      status.textContent = reconnecting ? 'RECONECTANDO...' : s.label;
+      status.className = 'status-text' + (reconnecting ? '' : (s.cls ? ' ' + s.cls : ''));
+
+      btn.classList.toggle('connected', state === 'CONNECTED');
+      btn.classList.toggle('connecting', reconnecting || ['CONNECTING','AUTH','DISCONNECTING'].includes(state));
+      btn.textContent = state === 'CONNECTED' ? 'DESCONECTAR'
+        : (reconnecting || ['CONNECTING','AUTH'].includes(state)) ? 'CONECTANDO...'
+        : 'INICIAR';
+
+      vpnConnected = state === 'CONNECTED';
+      vpnConnecting = ['CONNECTING', 'AUTH', 'DISCONNECTING'].includes(state);
+
+      if (state === 'CONNECTED' && !wasOnline) { log('✓ Conectado!', '#4ade80'); requestCheckUser(); }
+      else if (reconnecting) log('Reconectando…', '#facc15');
+      else if (state === 'DISCONNECTED') log('Desconectado.', '#facc15');
+      else if (state === 'AUTH_FAILED') log('Falha de autenticação.', '#ff5f5f');
+      else if (state === 'NO_NETWORK') log('Sem rede.', '#ff5f5f');
+
+      lastState = state;
+    }
+
+    /* ══ CHECK-USER (DtStartCheckUser / dtCheckUserModelListener) ══ */
+    function renderCheckUser(data) {
+      const box = document.getElementById('checkUserBox');
+      if (!box) return;
+
+      const days = data.expiration_days ?? data.expirationDays;
+      const daysNum = Number(days);
+      const daysCls = (!isNaN(daysNum) && daysNum <= 3) ? 'danger' : (!isNaN(daysNum) && daysNum <= 7) ? 'warn' : '';
+
+      const used = data.count_connections ?? data.countConnections ?? 0;
+      const limit = data.limit_connections ?? data.limitConnections ?? '-';
+      const limitCls = (Number(used) >= Number(limit) && limit !== '-') ? 'warn' : '';
+
+      document.getElementById('cuExpiration').textContent = data.expiration_date || data.expirationDate || '-';
+      document.getElementById('cuDays').textContent = (days ?? '-') + (days !== undefined && days !== null && days !== '-' ? '' : '');
+      const daysEl = document.getElementById('cuDays');
+      daysEl.className = 'cu-value' + (daysCls ? ' ' + daysCls : '');
+
+      const limitEl = document.getElementById('cuLimit');
+      limitEl.textContent = used + '/' + limit;
+      limitEl.className = 'cu-value' + (limitCls ? ' ' + limitCls : '');
+
+      if (data.message) log(String(data.message), '#facc15');
+
+      box.classList.add('show');
+    }
+
+    function requestCheckUser() {
+      B.exec('DtStartCheckUser');
+    }
+
+    window.dtCheckUserStartedListener = () => { /* poderia mostrar um spinner aqui, se quiser */ };
+    window.dtCheckUserModelListener = raw => {
+      let data;
+      try { data = JSON.parse(raw); } catch (e) { data = { message: String(raw || '') }; }
+      renderCheckUser(data || {});
+    };
+
+    /* Callbacks nativos */
+    window.DtVpnStateListener = s => { if (s) renderState(s); };
+    window.dtVpnStoppedSuccessListener = () => { lastState = 'DISCONNECTING'; renderState('DISCONNECTED'); };
+    window.dtConnectionErrorListener = e => {
+      const code = String(e?.code || '');
+      const msg = code ? ('Falha na conexão (' + code + ').') : 'Falha na conexão.';
+      log('[ERRO] ' + (e?.message || msg), '#ff5f5f');
+      renderState('DISCONNECTED');
+    };
+    window.DtConnectionErrorListener = window.dtConnectionErrorListener;
+    window.dtAuthErrorListener = window.dtConnectionErrorListener;
+    window.DtAuthErrorListener = window.dtConnectionErrorListener;
+    window.DtUpdatePayloadSuccessListener = () => {
+      updatingCatalog = false;
+      document.getElementById('refreshIcon')?.classList.remove('spinning');
+      log('✓ Configs atualizadas!', '#4ade80');
+      loadConfigs(); loadDefault();
+    };
+    window.DtUpdatePayloadErrorListener = m => {
+      updatingCatalog = false;
+      document.getElementById('refreshIcon')?.classList.remove('spinning');
+      log('✗ Erro ao atualizar configs: ' + (m || ''), '#ff5f5f');
+    };
+
+    /* ══ CONECTAR ══ */
+    function handleConnect() {
+      if (vpnConnected) {
+        B.exec('DtExecuteVpnStop');
+        return;
+      }
+      if (vpnConnecting) {
+        // Só cancela a tentativa — dá liberdade de interromper uma config que não conecta.
+        B.exec('DtExecuteVpnStop');
+        return;
+      }
+      startConnection();
+    }
+
+    function togglePass() {
+      const passField = document.getElementById('passInput');
+      passField.type = passField.type === 'password' ? 'text' : 'password';
+    }
+
+    function startConnection() {
+      B.set('DtUsername', document.getElementById('usernameInput').value);
+      B.set('DtPassword', document.getElementById('passInput').value);
+      B.set('DtUuid', document.getElementById('uuidInput').value || '');
+      if (selectedId) dtSetCfg(selectedId);
+      renderState('CONNECTING');
+      B.exec('DtExecuteVpnStart');
+    }
+
+    /* ══ SERVIDORES (DtGetConfigs / DtGetDefaultConfig / DtSetConfig) ══ */
+    let configs = [], selectedId = null;
+    function dtSetCfg(id) { const n = parseInt(id); try { window.DtSetConfig.execute(isNaN(n) ? String(id) : n); } catch(e) {} }
+
+    function isLocked(v) { return String(v ?? '').trim().toLowerCase() === 'locked'; }
+    function isUuidCatalogMode(cfg) {
+      const m = String(cfg?.mode || '').toLowerCase();
+      if (m.includes('xhttp')) return false; // XHTTP + SSH usa usuário/senha, nunca UUID
+      return m.includes('v2ray') || m.includes('xray') || m.includes('vmess') || m.includes('vless');
+    }
+    function updateAuthVisibility(item) {
+      const auth = item?.auth || {};
+      const uuidLocked = isLocked(B.get('DtUuid'));
+      const userLocked = isLocked(B.get('DtUsername'));
+      const passLocked = isLocked(B.get('DtPassword'));
+
+      const uuidRequired = (
+        auth.v2ray_uuid === true || auth.manual_v2ray_uuid === true || isUuidCatalogMode(item)
+      ) && !uuidLocked;
+
+      const sshRequired = (
+        auth.username === true || auth.manual_username === true ||
+        auth.password === true || auth.manual_password === true ||
+        !userLocked || !passLocked
+      ) && !uuidRequired;
+
+      document.getElementById('uuidBox').classList.toggle('hidden', !uuidRequired);
+      document.getElementById('userBox').classList.toggle('hidden', !sshRequired);
+      document.getElementById('passBox').classList.toggle('hidden', !sshRequired);
+    }
+
+    function findItem(id) { for (const g of configs) for (const it of (g.items || [])) if (String(it.id) === String(id)) return it; return null; }
+
+    function displayServer(item) {
+      updateAuthVisibility(item);
+      const sel = document.getElementById('profileSelect');
+      if (sel) sel.value = String(item.id);
+    }
+
+    function selectServer(item) {
+      selectedId = item.id; dtSetCfg(item.id); displayServer(item);
+      LS.set('c4g_srv', item);
+      requestCheckUser();
+    }
+
+    function onProfileSelectChange() {
+      const sel = document.getElementById('profileSelect');
+      const item = findItem(sel.value);
+      if (item) { selectedId = item.id; dtSetCfg(item.id); displayServer(item); LS.set('c4g_srv', item); requestCheckUser(); }
+    }
+
+    function renderServerSelect() {
+      const sel = document.getElementById('profileSelect');
+      sel.innerHTML = '<option value="">Selecione um perfil…</option>';
+      configs.forEach(g => {
+        (g.items || []).forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id;
+          opt.textContent = (g.name ? g.name + ' — ' : '') + (item.name || item.id);
+          sel.appendChild(opt);
+        });
+      });
+      if (selectedId) sel.value = String(selectedId);
+    }
+
+    function loadConfigs() {
+      try { configs = JSON.parse(B.exec('DtGetConfigs', '[]') || '[]'); } catch(e) { configs = []; }
+      try {
+        const cur = B.json('DtGetDefaultConfig', {});
+        if (cur && cur.id && !findItem(cur.id)) configs.unshift({ id: '_imp', name: '📋 IMPORTADO', items: [cur] });
+      } catch(e) {}
+      renderServerSelect();
+    }
+    function loadDefault() {
+      try {
+        const cur = B.json('DtGetDefaultConfig', {});
+        if (cur && cur.id) {
+          const item = findItem(cur.id) || cur;
+          selectedId = item.id; dtSetCfg(item.id); displayServer(item);
+          LS.set('c4g_srv', item);
+          requestCheckUser();
+          return;
+        }
+      } catch(e) {}
+      const saved = LS.get('c4g_srv', null);
+      if (saved && saved.id) {
+        const item = findItem(saved.id) || saved;
+        selectedId = item.id; dtSetCfg(item.id); displayServer(item);
+        requestCheckUser();
+        return;
+      }
+      if (configs.length && configs[0].items?.length) selectServer(configs[0].items[0]);
+    }
+
+    /* ══ ATUALIZAÇÃO DO APP (ícone do canto — dispara o update nativo) ══ */
+    let updatingCatalog = false;
+    function handleCheckUpdate() {
+      if (updatingCatalog) return;
+      updatingCatalog = true;
+      const icon = document.getElementById('refreshIcon');
+      if (icon) icon.classList.add('spinning');
+      B.exec('DtStartAppUpdate');
+      // Trava de segurança: para o spinner mesmo se o app não responder.
+      setTimeout(() => { updatingCatalog = false; if (icon) icon.classList.remove('spinning'); }, 10000);
+    }
+
+    /* ══ INIT ══ */
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('usernameInput').value = B.clean(B.get('DtUsername'));
+      document.getElementById('passInput').value = B.clean(B.get('DtPassword'));
+      document.getElementById('uuidInput').value = B.clean(B.get('DtUuid'));
+      document.getElementById('usernameInput').oninput = e => B.set('DtUsername', e.target.value);
+      document.getElementById('passInput').oninput = e => B.set('DtPassword', e.target.value);
+      document.getElementById('uuidInput').oninput = e => B.set('DtUuid', e.target.value);
+
+      loadConfigs();
+      loadDefault();
+      scalePhone();
+      updateInsets();
+
+      const init = B.exec('DtGetVpnState', 'DISCONNECTED');
+      renderState(init || 'DISCONNECTED');
+
+      let last = init;
+      setInterval(() => {
+        try { const s = B.exec('DtGetVpnState', 'DISCONNECTED'); if (s && s !== last) { last = s; renderState(s); } } catch(e) {}
+      }, 1000);
+    });
+
+  </script>
+
+</body>
+</html>
