@@ -8,12 +8,15 @@
   "ImgMenu": "https://telegra.ph/file/828fa0ae4f65228764d39.png",
   "ImgLogs": "https://telegra.ph/file/ca921a93220cc2281f147.png",
   "ImgCheck": "https://telegra.ph/file/12ab1b8c54f671f72bc73.png",
-  'ImgUser': "https://telegra.ph/file/51cfbf308fa6a293d6f7b.png",
-  'ImgPass': "https://telegra.ph/file/0aae4b5cc75034f04611d.png",
+  "ImgUser": "https://telegra.ph/file/51cfbf308fa6a293d6f7b.png",
+  "ImgPass": "https://telegra.ph/file/0aae4b5cc75034f04611d.png",
+  "ImgUpdate": "https://i.imgur.com/CJFEvDW.png",
+  "ImgRouter": "https://i.imgur.com/dVXDkjG.png",
+  "ImgDownload": "https://i.imgur.com/3MSc42G.png",
+  "ImgUpload": "https://i.imgur.com/t4sa3i9.png",
   "ColorOne": "#7A333333",
   "ColorTwo": "#7A333333",
   "ColorStarter": "#7A333333",
   "ColorDialogs": "#84ffffff",
-  "ColorButtons": "#333333",
-  "ImgUpdate": "https://i.imgur.com/CJFEvDW.png"
+  "ColorButtons": "#333333"
 }
