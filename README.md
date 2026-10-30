@@ -1,4 +1,4 @@
-# 🌐 ConnectPlus "LN"
+# 🌐 ConnectPlus RE
 
 Bem-vindo ao **ConnectPlus**! Seu aplicativo VPN para garantir uma conexão segura e privada, sem complicações. 
 
