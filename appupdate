@@ -1,7 +1,6 @@
 {
-  "Version": "1",
-  "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/appupdate",
-  "VersionName": "RE 1.0.0408-99",
-  "UpdateApk":"https://github.com/hwoxan/pnetplus/releases/download/v1.0.4/PnetPlus-LN-1.0.4.apk",
-  "Forced": false
+  "Version": "2",
+  "VersionName": "RE 2026.1.1030-10",
+  "Update": "http://free.hwoxan.sbs:5000/appupdate/raw",
+  "UpdateApk": "sesulinkdonovoapp"
 }
