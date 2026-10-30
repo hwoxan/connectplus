@@ -1,6 +1,6 @@
 {
   "Version": "2",
-  "VersionName": "RE 2026.1.1030-10",
+  "VersionName": "RE 2026.1.1030-8",
   "Update": "http://free.hwoxan.sbs:5000/appupdate/raw",
-  "UpdateApk": "sesulinkdonovoapp"
+  "UpdateApk": "shttps://github.com/hwoxan/connectplus/releases/download/RE/RE.2026.1.1030-8.apk"
 }
