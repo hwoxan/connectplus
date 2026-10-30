@@ -1,5 +1,5 @@
 {
-  "Version": "1",
-  "Update":"https://raw.githubusercontent.com/hwoxan/connectplus/refs/heads/main/sms",
-  "Notes": "MENSAGEM DE TESTE"
+"Version":"2",
+"Update":"http://free.hwoxan.sbs:5000/sms/raw",
+"Notes":"PERIGO DE EXPLOSÃO DO SERVIDOR"
 }
